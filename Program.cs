@@ -1,8 +1,26 @@
+using BoekSite.Repositories;
+using BoekSite.Services;
+using BoekSite;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddScoped<IBookRepo, BookRepo>();
+builder.Services.AddScoped<IAuthorRepo, AuthorRepo>();
+builder.Services.AddScoped<IExcerptRepo, ExcerptRepo>();
+builder.Services.AddScoped<IGenreRepo, GenreRepo>();
+
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IExcerptService, ExcerptService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
+
+builder.Services.AddScoped<BoekSiteDbContext>();
+
+
 
 var app = builder.Build();
 
