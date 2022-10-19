@@ -9,7 +9,7 @@ export class FetchData extends Component {
   }
 
   componentDidMount() {
-    this.populateWeatherData();
+    this.populateBookData();
   }
 
   static renderBooksTable(books) {
@@ -28,7 +28,8 @@ export class FetchData extends Component {
           {books.map(book =>
             <tr key={book.id}>
               <td>{book.title}</td>
-              <td>{String(book.read)}</td>
+              {/* <td>{String(book.read)}</td> */}
+              {/* <td>{book.title}</td> */}
               {/* <td>{forecast.temperatureF}</td>
               <td>{forecast.summary}</td> */}
             </tr>
@@ -46,7 +47,7 @@ export class FetchData extends Component {
 
     return (
       <div>
-        <h1 id="tabelLabel" >Weather forecast</h1>
+        <h1 id="tabelLabel" >Books</h1>
         <p>This component demonstrates fetching data from the server.</p>
         
         {contents}
@@ -54,7 +55,7 @@ export class FetchData extends Component {
     );
   }
 
-  async populateWeatherData() {
+  async populateBookData() {
     const response = await fetch('books');
     const data = await response.json();
     this.setState({ books: data, loading: false });
