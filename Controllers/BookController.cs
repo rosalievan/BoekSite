@@ -35,4 +35,10 @@ public class BookController : ControllerBase
         _books.CreateBook(createBookRequest);
         return createBookRequest;
     }
+
+    [HttpPatch]
+    public void UpdateReadStatus([FromBody] UpdateReadStatusRequest updateReadStatusRequest)
+    {
+        _books.UpdateReadStatus(updateReadStatusRequest);
+    }
 }

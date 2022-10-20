@@ -9,6 +9,7 @@ namespace BoekSite.Services
         public IEnumerable<Book> GetAllBooks();
         public Book CreateBook(CreateBookRequest book);
         public Book GetBookById(int id);
+        public void UpdateReadStatus(UpdateReadStatusRequest updateReadStatusRequest);
     }
 
     public class BookService : IBookService
@@ -54,6 +55,11 @@ namespace BoekSite.Services
         public Book GetBookById(int id)
         {
             return _books.GetBookById(id);
+        }
+
+        public void UpdateReadStatus(UpdateReadStatusRequest updateReadStatusRequest)
+        {
+            _books.UpdateReadStatus(updateReadStatusRequest);
         }
     }
 }

@@ -1,57 +1,84 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
+import Toggle from 'react-toggle'
+import "react-toggle/style.css";
 
-export class Home extends Component {
-  static displayName = Home.name;
+export const Home = (props) => {
+  const [ books, setBooks] = useState([])
+  const [ loading, setLoading] = useState(true)
+  const [ selectedBookId, setSelectedBookId] = useState(null)
 
-  constructor(props) {
-    super(props);
-    this.state = { books: [], loading: true };
+  async function populateBookData() {
+    const response = await fetch('books');
+    const data = await response.json();
+    setBooks(data)
+    setLoading(false)
   }
 
-  componentDidMount() {
-    this.populateBookData();
+  useEffect(function () {
+    populateBookData();
+  }, [])
+
+  function handleCardClick(id){
+    if (id == selectedBookId){ 
+      setSelectedBookId(null)
+    }
+    else{
+    setSelectedBookId(id)
+    }
+  };
+
+  function toggleReadStatus(id)
+  {
+    fetch("books", {  
+      method: "PATCH",  
+      headers: {"Content-type": "application/json"},  
+      body: JSON.stringify({bookId: id})
+    })
   }
 
-  static renderBooksTable(books) {
-
+  function renderBooksTable(books){
     return (
+      <div>
+        <div className = 'filters'>
+          blah
+        </div>
       
         <div className='card-feed'>
           {books.map(book =>
             <div className = {`card-div read-${book.read} rating-${book.rating}`} >
               <p className = 'card-title'>{book.title}</p>
               <p className = 'card-author'> Donna Tartt </p>
+
+              <button className={`card-toggle-button ${book.id===selectedBookId ? "card-edit-field--revealed" : ""}`} onClick={() => handleCardClick(book.id)}>^</button>
+              
+              {book.id === selectedBookId ? 
               <div className = 'card-forms'> 
-                <p>{String(book.read)}</p>
+                <label>
+                  <Toggle
+                    defaultChecked = {book.read}
+                    onChange = {toggleReadStatus(book.id)}/>
+                  <span>Read</span>
+                </label>
+                <p>{selectedBookId}</p>
                 <p>{String(book.rating)}</p>
                 <p>{String(book.available)}</p>
-                <p>+</p></div>
+                <p>+</p></div> : null }
             </div>
           )}
+        </div>
+
         </div>
 
     );
   }
 
-  render() {
-    let contents = this.state.loading
-      ? <p><em>Loading...</em></p>
-      : Home.renderBooksTable(this.state.books);
+  let contents = loading
+    ? <p><em>Loading...</em></p>
+    : renderBooksTable(books);
 
-    return (
-      <div>
-        <h1 id="tabelLabel" >Books</h1>
-        <p>This component demonstrates fetching data from the server.</p>
-        
-        {contents}
-      </div>
-    );
-  }
-
-  async populateBookData() {
-    const response = await fetch('books');
-    const data = await response.json();
-    this.setState({ books: data, loading: false });
-}
-
+  return (
+    <div>       
+      {contents}
+    </div>
+  );
 }

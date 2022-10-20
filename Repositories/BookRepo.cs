@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using BoekSite.Models.Database;
+using BoekSite.Models.Request;
 
 namespace BoekSite.Repositories
 {
@@ -10,6 +11,8 @@ namespace BoekSite.Repositories
         public IEnumerable<Book> GetAllBooks();
         public Book CreateBook(Book createBookRequest);
         public Book GetBookById(int id);
+
+        public void UpdateReadStatus(UpdateReadStatusRequest updateReadStatusRequest);
 
     }
 
@@ -37,6 +40,16 @@ namespace BoekSite.Repositories
         public Book GetBookById(int id)
         {
             return _context.Books.Where(b => b.Id == id).Single();
+        }
+
+        public void UpdateReadStatus(UpdateReadStatusRequest updateReadStatusRequest)
+        {
+            var result = _context.Books.SingleOrDefault(b => b.Id == updateReadStatusRequest.BookId);
+            if (result != null)
+            {
+                result.Read = !result.Read;
+                _context.SaveChanges();
+            }
         }
     }
 }

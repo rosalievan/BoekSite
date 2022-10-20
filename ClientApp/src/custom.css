@@ -13,14 +13,14 @@ code {
   border-color: #1861ac;
 }
 
+
 .card-feed {
-  background-color: lightgrey;
   display: flex;
   
 }
 
 .card-div {
-  background-color: white;
+  background-color: lightgrey;
   color: black;
   border-radius: 5px;
   margin: 2px;
@@ -58,4 +58,11 @@ code {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.card-toggle-button {
+  background-color: transparent;
+  border: none;
+  transform: rotate(180deg);
+  transition: 0.3s;
 }
