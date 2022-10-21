@@ -1,6 +1,6 @@
 namespace BoekSite.Models.Request
 {
-    public class UpdateReadStatusRequest
+    public class UpdateAvailabilityStatusRequest
     {
         public int BookId { get; set; }
     }

@@ -10,6 +10,8 @@ namespace BoekSite.Services
         public Book CreateBook(CreateBookRequest book);
         public Book GetBookById(int id);
         public void UpdateReadStatus(UpdateReadStatusRequest updateReadStatusRequest);
+        public void UpdateAvailabilityStatus(UpdateAvailabilityStatusRequest updateAvailabilityStatusRequest);
+        public void UpdateRating(UpdateRatingRequest updateRatingRequest);
     }
 
     public class BookService : IBookService
@@ -61,5 +63,15 @@ namespace BoekSite.Services
         {
             _books.UpdateReadStatus(updateReadStatusRequest);
         }
+
+         public void UpdateAvailabilityStatus(UpdateAvailabilityStatusRequest updateAvailabilityStatusRequest)
+         {
+            _books.UpdateAvailabilityStatus(updateAvailabilityStatusRequest);
+         }
+
+         public void UpdateRating(UpdateRatingRequest updateRatingRequest)
+         {
+            _books.UpdateRating(updateRatingRequest);
+         }
     }
 }

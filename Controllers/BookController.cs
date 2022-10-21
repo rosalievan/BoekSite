@@ -41,4 +41,17 @@ public class BookController : ControllerBase
     {
         _books.UpdateReadStatus(updateReadStatusRequest);
     }
+
+    [HttpPatch("updateAvailabilityStatus")]
+    public void UpdateAvailabilityStatus([FromBody] UpdateAvailabilityStatusRequest updateAvailabilityStatusRequest)
+    {
+    _books.UpdateAvailabilityStatus(updateAvailabilityStatusRequest);
+    }
+
+    [HttpPatch("updateRating")]
+    public void UpdateRating([FromBody] UpdateRatingRequest updateRatingRequest)
+    {
+        _books.UpdateRating(updateRatingRequest);
+    }
+
 }
